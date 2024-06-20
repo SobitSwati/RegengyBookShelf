@@ -1,0 +1,6 @@
+@RegengyBookShelf_Api_HostAddress = http://localhost:5262
+
+GET {{RegengyBookShelf_Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -1,0 +1,5 @@
+{
+    "appService.preDeployTask": "publish-release",
+    "appService.deploySubpath": "bin\\Release\\net8.0\\publish",
+    "appService.defaultWebAppToDeploy": "/subscriptions/fc84c07a-c3b3-44e9-8d5a-104da2c02f9e/resourceGroups/learn-1f18b9f7-1981-47c8-8e59-48c059821773/providers/Microsoft.Web/sites/regengyseriesapi"
+}
