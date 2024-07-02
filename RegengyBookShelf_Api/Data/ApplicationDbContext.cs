@@ -10,6 +10,7 @@ namespace RegengyBookShelf_Api.Data
         }
 
         public DbSet<Series> Series { get; set; }
+        public DbSet<Books> Books { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -26,6 +27,17 @@ namespace RegengyBookShelf_Api.Data
                     Name = "Bridgerton",
                     CreatedDate = DateTime.Now,
                 });
+
+            modelBuilder.Entity<Books>().HasData(
+               new Books
+               {
+                   Id = 1,
+                   Author = "Sarah MacLean",
+                   Title = "A Rogue by Any Other Name",
+                   Description = "A decade ago, the Marquess of Bourne was cast from society with nothing but his title. Now a partner in London’s most exclusive gaming hell, the cold, ruthless Bourne will do whatever it takes to regain his inheritance—including marrying perfect, proper Lady Penelope Marbury.\r\n\r\nA broken engagement and years of disappointing courtships have left Penelope with little interest in a quiet, comfortable marriage, and a longing for something more. How lucky that her new husband has access to such unexplored pleasures.\r\n\r\nBourne may be a prince of London’s underworld, but he vows to keep Penelope untouched by its wickedness—a challenge indeed as the lady discovers her own desires, and her willingness to wager anything for them... even her heart.",
+                    ISBN = "9780062068521",
+                    ImageUrl = "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1327928208i/10428803.jpg"
+               });
         }
     }
 }
