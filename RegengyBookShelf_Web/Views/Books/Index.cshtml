@@ -1,0 +1,43 @@
+﻿@model List<BooksDto>
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Books List</h2>
+        </div>
+        <div class="col-6 text-end">
+            <a asp-controller= "Book" asp-action= "Add" class= "btn btn-primary">
+               <i class="bi bi-plus-circle"></i> Add New Book
+            </a>
+        </div>
+    </div>
+    <br /><br /><br />
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Title</th>
+				<th>Description</th>
+				<th>ISBN</th>
+				<th>Author</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var item in Model)
+			{
+				<tr>
+					<td>@item.Title</td>
+					<td>@item.Description</td>
+					<td>@item.ISBN</td>
+					<td>@item.Author</td>
+					<td>
+						@* <a asp-controller="VillaNumber" asp-action="UpdateVillaNumber" asp-route-villaNo="@item.VillaNo" class="btn btn-success"><i class="bi bi-pencil-square"></i></a>
+						<a asp-controller="VillaNumber" asp-action="DeleteVillaNumber" asp-route-villaNo="@item.VillaNo" class="btn btn-danger"><i class="bi bi-trash-fill"></i></a> *@
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+
+</div>

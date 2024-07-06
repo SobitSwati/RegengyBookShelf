@@ -8,6 +8,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 builder.Services.AddHttpClient<ISeriesService, SeriesService>();
 builder.Services.AddScoped<ISeriesService, SeriesService>();
+builder.Services.AddHttpClient<IBooksService,BooksService>();
+builder.Services.AddScoped<IBooksService, BooksService>();
 
 var app = builder.Build();
 
