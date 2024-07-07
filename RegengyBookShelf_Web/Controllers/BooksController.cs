@@ -25,5 +25,10 @@ namespace RegengyBookShelf_Web.Controllers
 
             return View(booksList);
         }
+
+        public async Task<IActionResult> AddBook()
+        {
+            return View();
+        }
     }
 }
