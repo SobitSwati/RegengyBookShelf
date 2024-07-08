@@ -25,6 +25,30 @@ namespace RegengyBookShelf_Api.Controllers
             _response.StatusCode = HttpStatusCode.OK;
             _response.IsSuccess = true;
             return Ok(_response);
+        }
+
+        [HttpGet("bookId")]
+
+        public async Task<ActionResult<APIResponse>> GetBook(int bookId)
+        {
+            if (bookId == 0)
+            {
+                return BadRequest();
+            }
+            var book = await _booksRepository.GetAsync(u => u.Id == bookId);
+
+            if (book == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                _response.Result = book;
+                _response.StatusCode = HttpStatusCode.OK;
+                _response.IsSuccess = true;
+            }
+
+			return Ok(_response);
         } 
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RegengyBookShelf_Api.Data;
 using RegengyBookShelf_Api.Repository.IRepository;
+using System.Linq.Expressions;
 
 namespace RegengyBookShelf_Api.Repository
 {
@@ -20,5 +21,16 @@ namespace RegengyBookShelf_Api.Repository
             IQueryable<T> query = dbSet;
             return await query.ToListAsync();
         }
-    }
+
+		public async Task<T> GetAsync(Expression<Func<T, bool>> filter)
+		{
+			IQueryable<T> query = dbSet;
+			if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+
+            return await query.FirstOrDefaultAsync();
+		}
+	}
 }
