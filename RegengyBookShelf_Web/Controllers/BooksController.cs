@@ -44,9 +44,18 @@ namespace RegengyBookShelf_Web.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public async Task<IActionResult> Details()
+        public async Task<IActionResult> Details(int bookId)
         {
-            return View();
+			BooksDto book = new();
+			if (bookId != 0)
+            {
+                var response= await _booksService.GetAsync<APIResponse>(bookId);
+                if (response != null)
+                {
+					book = JsonConvert.DeserializeObject<BooksDto>(Convert.ToString(response.Result));
+				}
+            }
+            return View(book);
         }
 
 	}
