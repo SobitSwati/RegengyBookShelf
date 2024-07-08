@@ -7,12 +7,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Views\Books\Details.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="8.0.6" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\RegengyBookShelf_Utility\RegengyBookShelf_Utility.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Views\Books\Details.cshtml" />
   </ItemGroup>
 
 </Project>

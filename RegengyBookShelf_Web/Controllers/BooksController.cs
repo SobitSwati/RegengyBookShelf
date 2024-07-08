@@ -43,5 +43,11 @@ namespace RegengyBookShelf_Web.Controllers
             }
             return RedirectToAction(nameof(Index));
         }
-    }
+
+        public async Task<IActionResult> Details()
+        {
+            return View();
+        }
+
+	}
 }
