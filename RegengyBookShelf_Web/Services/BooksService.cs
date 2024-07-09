@@ -29,7 +29,7 @@ namespace RegengyBookShelf_Web.Services
             return SendAsync<T>(new APIRequest
             {
                 ApiType = ApiType.GET,
-                Url = booksUrl + "api/BooksApi" + bookId
+                Url = booksUrl + "api/BooksApi/bookId?bookId=" + bookId
             });
 		}
 	}
