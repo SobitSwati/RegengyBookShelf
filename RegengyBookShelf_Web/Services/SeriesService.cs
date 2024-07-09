@@ -5,7 +5,7 @@ using static RegengyBookShelf_Utility.SD.ApiType;
 
 namespace RegengyBookShelf_Web.Services
 {
-    public class SeriesService : BaseService, ISeriesService
+	public class SeriesService : BaseService, ISeriesService
     {
         private readonly IHttpClientFactory _httpClient;
         private string seriesUrl;
@@ -40,7 +40,7 @@ namespace RegengyBookShelf_Web.Services
             return SendAsync<T>(new APIRequest
             {
                 ApiType = GET,
-                Url = seriesUrl + "api/SeriesApi" + seriesId
+                Url = seriesUrl + "api/SeriesApi/seriesId?seriesId=" + seriesId
             });
         }
     }
