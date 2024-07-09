@@ -51,5 +51,26 @@ namespace RegengyBookShelf_Api.Controllers
           
             return Ok(_response);
         }
+
+        [HttpGet("seriesId")]
+        public async Task<ActionResult<APIResponse>> GetSeries(int seriesId)
+        {
+            if (seriesId == 0)
+            {
+                return BadRequest();
+            }
+
+            Series series = await _seriesRepository.GetAsync(u => u.Id == seriesId);
+
+            if (series == null)
+            {
+                return NotFound();
+            }
+
+            _response.Result = series;
+            _response.StatusCode = HttpStatusCode.OK;
+            _response.IsSuccess = true;
+            return Ok(_response);
+        }
     }
 }
