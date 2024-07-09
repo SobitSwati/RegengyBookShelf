@@ -51,8 +51,13 @@ namespace RegengyBookShelf_Web.Controllers
                 return BadRequest();
             }
 
-            var series = _seriesService.GetAsync<APIResponse>(seriesId);
-            return View();
+            var response = await _seriesService.GetAsync<APIResponse>(seriesId);
+            if (response != null)
+            {
+                SeriesDto series = JsonConvert.DeserializeObject<SeriesDto>(response.Result.ToString());
+                return View(series);
+            }
+           return NotFound();
         }
 
 	}
