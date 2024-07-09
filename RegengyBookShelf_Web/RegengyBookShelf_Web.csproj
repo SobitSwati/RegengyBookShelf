@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <Content Remove="Views\Books\Details.cshtml" />
+    <Content Remove="Views\Series\Details.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,6 +22,15 @@
 
   <ItemGroup>
     <None Include="Views\Books\Details.cshtml" />
+    <None Include="Views\Series\Details.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Series\Details.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\Series\Details.cshtml" />
   </ItemGroup>
 
 </Project>

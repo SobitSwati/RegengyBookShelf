@@ -34,5 +34,14 @@ namespace RegengyBookShelf_Web.Services
                 Url = seriesUrl + "api/SeriesApi"
             });
         }
+
+        public Task<T> GetAsync<T>(int seriesId)
+        {
+            return SendAsync<T>(new APIRequest
+            {
+                ApiType = GET,
+                Url = seriesUrl + "api/SeriesApi" + seriesId
+            });
+        }
     }
 }

@@ -27,6 +27,11 @@ app.UseSwaggerUI(options =>
     options.SwaggerEndpoint("/swagger/v1/swagger.json", "SeriesApi");
     options.RoutePrefix = String.Empty;
 });
+//if (app.Environment.IsDevelopment())
+//{
+//	app.UseSwagger();
+//	app.UseSwaggerUI();
+//}
 
 app.UseHttpsRedirection();
 

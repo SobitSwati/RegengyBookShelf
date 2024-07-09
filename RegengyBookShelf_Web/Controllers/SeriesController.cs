@@ -43,5 +43,17 @@ namespace RegengyBookShelf_Web.Controllers
             }
             return View();
         }
-    }
+
+        public async Task<IActionResult> Details(int seriesId)
+        {
+            if (seriesId == 0)
+            {
+                return BadRequest();
+            }
+
+            var series = _seriesService.GetAsync<APIResponse>(seriesId);
+            return View();
+        }
+
+	}
 }
