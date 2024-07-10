@@ -8,5 +8,6 @@ namespace RegengyBookShelf_Web.Services.IServices
         Task<T> GetAsync<T>(int seriesId);
         Task<T> AddAsync<T>(SeriesDto Dto);
         Task<T> UpdateAsync<T>(SeriesDto dto);
+        Task<T> DeleteAsync<T>(int seriesId);
     }
 }

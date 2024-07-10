@@ -26,6 +26,15 @@ namespace RegengyBookShelf_Web.Services
             });
         }
 
+        public Task<T> DeleteAsync<T>(int seriesId)
+        {
+            return SendAsync<T>(new APIRequest
+            {
+                ApiType = DELETE,
+                Url = seriesUrl + "api/SeriesApi/seriesId?seriesId=" + seriesId
+            });
+        }
+
         public Task<T> GetAllAsync<T>()
         {
             return SendAsync<T>(new APIRequest

@@ -93,5 +93,31 @@ namespace RegengyBookShelf_Web.Controllers
             return RedirectToAction(nameof(UpdateSeries));
         }
 
+        public async Task<IActionResult> DeleteSeries(int seriesId)
+        {
+            if (seriesId == 0)
+            {
+                return BadRequest();
+            }
+
+            var response = await _seriesService.GetAsync<APIResponse>(seriesId);
+            if (response != null)
+            {
+                SeriesDto series = JsonConvert.DeserializeObject<SeriesDto>(response.Result.ToString());
+                return View(series);
+            }
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteSeries(SeriesDto seriesDto)
+        {
+            var response = await _seriesService.DeleteAsync<APIResponse>(seriesDto.Id);
+            if (response != null) {
+                return RedirectToAction(nameof(Index));
+            }
+            return RedirectToAction(nameof(DeleteSeries));
+        }
+
     }
 }
