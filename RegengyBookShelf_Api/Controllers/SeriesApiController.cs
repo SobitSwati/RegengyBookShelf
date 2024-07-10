@@ -53,6 +53,8 @@ namespace RegengyBookShelf_Api.Controllers
         }
 
         [HttpGet("seriesId")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<APIResponse>> GetSeries(int seriesId)
         {
             if (seriesId == 0)
@@ -71,6 +73,37 @@ namespace RegengyBookShelf_Api.Controllers
             _response.StatusCode = HttpStatusCode.OK;
             _response.IsSuccess = true;
             return Ok(_response);
+        }
+
+        [HttpPut("seriesId")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<APIResponse>> UpdateSeries(int seriesId, [FromBody] SeriesDto seriesDto)
+        {
+            try
+            {
+                if (seriesDto == null)
+                {
+                    return BadRequest();
+                }
+
+                Series series = _mapper.Map<Series>(seriesDto); 
+
+                await _seriesRepository.UpdateAsync(series);
+                _response.IsSuccess = true;
+                _response.StatusCode= HttpStatusCode.NoContent;
+                return Ok(_response);
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.StatusCode = HttpStatusCode.InternalServerError;
+                _response.ErrorMessages
+                  = new List<string>() { ex.ToString() };
+            }
+            return (_response);
+          
         }
     }
 }
