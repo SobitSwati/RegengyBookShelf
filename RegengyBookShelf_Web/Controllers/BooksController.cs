@@ -38,7 +38,7 @@ namespace RegengyBookShelf_Web.Controllers
             if (book != null) {
                 using (var content = new StringContent(JsonConvert.SerializeObject(book), Encoding.UTF8, "application/json"))
                 {
-                    await _httpClient.PostAsync("https://prod-88.eastus.logic.azure.com:443/workflows/a62aecd5e7324055b19e6358c86e6903/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=DgcgftknTUBOIgWhzvljEoqwOEnRSnuW9SqvYY2wZkM", content);
+                    await _httpClient.PostAsync("https://prod-83.eastus.logic.azure.com:443/workflows/47553973f1644bf1ad7921bfa15e7db8/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=XLh_g-xY4SSTQ_N0HO6zHXWxXcGfTrOq4fiPIYzsE9g", content);
                 }
             }
             return RedirectToAction(nameof(Index));
@@ -56,6 +56,11 @@ namespace RegengyBookShelf_Web.Controllers
 				}
             }
             return View(book);
+        }
+
+        public async Task<IActionResult> UpdateBook(int bookId)
+        {
+            return View();
         }
 
 	}

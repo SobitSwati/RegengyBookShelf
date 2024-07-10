@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <Content Remove="Views\Books\Details.cshtml" />
+    <Content Remove="Views\Books\UpdateBook.cshtml" />
     <Content Remove="Views\Series\Details.cshtml" />
   </ItemGroup>
 
@@ -22,6 +23,7 @@
 
   <ItemGroup>
     <None Include="Views\Books\Details.cshtml" />
+    <None Include="Views\Books\UpdateBook.cshtml" />
     <None Include="Views\Series\Details.cshtml" />
   </ItemGroup>
 
@@ -30,7 +32,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\Books\UpdateBook.cshtml" />
     <_ContentIncludedByDefault Remove="Views\Series\Details.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Books\UpdateBook.cshtml" />
   </ItemGroup>
 
 </Project>
