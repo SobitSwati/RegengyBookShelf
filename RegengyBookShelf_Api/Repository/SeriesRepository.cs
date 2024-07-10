@@ -26,6 +26,12 @@ namespace RegengyBookShelf_Api.Repository
             return;
         }
 
+        public async Task DeleteAsync(Series series)
+        {
+          _db.Series.Remove(series);
+          await _db.SaveChangesAsync();
+        }
+
         public async Task<Series> UpdateAsync(Series series)
         {
             _db.Series.Update(series);

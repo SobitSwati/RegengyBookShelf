@@ -6,5 +6,6 @@ namespace RegengyBookShelf_Api.Repository.IRepository
     {
         Task AddAsync(Series series);
         Task<Series> UpdateAsync(Series series);
+        Task DeleteAsync(Series series);
     }
 }

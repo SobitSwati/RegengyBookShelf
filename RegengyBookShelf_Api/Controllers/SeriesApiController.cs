@@ -105,5 +105,29 @@ namespace RegengyBookShelf_Api.Controllers
             return (_response);
           
         }
+
+        [HttpDelete("seriesId")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public async Task<ActionResult<APIResponse>> DeleteSeries(int seriesId)
+        {
+            if (seriesId == 0)
+            {
+                return BadRequest();
+            }
+
+            var seriesToDelete = await _seriesRepository.GetAsync(u=> u.Id == seriesId);
+            if (seriesToDelete == null)
+            {
+                return NotFound();
+            }
+
+            Series series = _mapper.Map<Series>(seriesToDelete);
+            await _seriesRepository.DeleteAsync(series);
+            _response.IsSuccess = true;
+            _response.StatusCode = HttpStatusCode.NoContent;
+            return (_response);
+        }
     }
 }
