@@ -50,7 +50,7 @@ namespace RegengyBookShelf_Web.Services
             {
                 ApiType = PUT,
                 Data = dto,
-                Url = seriesUrl + "api/SeriesApi"
+                Url = seriesUrl + "api/SeriesApi/seriesId?seriesId=" + dto.Id
             });
         }
     }
