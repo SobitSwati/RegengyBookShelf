@@ -85,5 +85,34 @@ namespace RegengyBookShelf_Web.Controllers
             }
             return RedirectToAction(nameof(Index));
 		}
+
+        public async Task<IActionResult> DeleteBook(int bookId)
+        {
+			if (bookId == 0)
+			{
+				return BadRequest();
+			}
+			BooksDto book = new();
+			var response = await _booksService.GetAsync<APIResponse>(bookId);
+			if (response != null)
+			{
+				book = JsonConvert.DeserializeObject<BooksDto>(Convert.ToString(response.Result));
+			}
+
+			return View(book);
+		}
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteBook(BooksDto booksDto)
+        {
+            if (booksDto != null)
+            {
+                using (var content = new StringContent(JsonConvert.SerializeObject(booksDto), Encoding.UTF8, "application/json"))
+                {
+                    await _httpClient.PostAsync("https://prod-65.eastus.logic.azure.com:443/workflows/61d50db0b1cf4c5abaf0a02ffc32cbdc/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=68pLc7_j5mfGE5h3lWZJaamsBvT4kP72b1nWDG8Izcg", content);
+                }
+            }
+			return RedirectToAction(nameof(Index));
+		}
 	}
 }

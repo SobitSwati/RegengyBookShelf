@@ -1,0 +1,53 @@
+﻿@model BooksDto
+
+<form method="post">
+	<div class="row">
+		<div class="border p-3 mt-4 col-8">
+			<div class="row pb-2">
+				<h2 class="text-primary">Delete Book</h2>
+				<hr />
+			</div>
+			@*<div asp-validation-summary= "All"></div>*@
+			<input hidden asp-for="Id" />
+			<div class="mb-3">
+				<label asp-for="Title"></label>
+				<input asp-for="Title" class="form-control" readonly />
+				<span asp-validation-for="Title" class="text-danger"></span>
+			</div>
+			<div class="mb-3">
+				<label asp-for="Description"></label>
+				<textarea asp-for="Description" class="form-control" readonly></textarea>
+				<span asp-validation-for="Description" class="text-danger"></span>
+			</div>
+			<div class="mb-3">
+				<label asp-for="ISBN"></label>
+				<input asp-for="ISBN" class="form-control" readonly />
+				<span asp-validation-for="ISBN" class="text-danger"></span>
+			</div>
+			<div class="mb-3">
+				<label asp-for="Author"></label>
+				<input asp-for="Author" class="form-control" readonly />
+				<span asp-validation-for="Author" class="text-danger"></span>
+			</div>
+			<div class="mb-3">
+				<label asp-for="ImageUrl"></label>
+				<input asp-for="ImageUrl" class="form-control" readonly />
+				<span asp-validation-for="ImageUrl" class="text-danger"></span>
+			</div>
+			<button type="submit" class="btn btn-danger" style="width:150px">Delete</button>
+			<a asp-controller="Books" asp-action="Index" class="btn btn-secondary" style="width:150px">
+				Back To List
+			</a>
+		</div>
+		<div class="col-4 p-4">
+			<img src="@Model.ImageUrl" class="img-fluid" />
+		</div>
+	</div>
+
+</form>
+
+@section Scripts {
+	@{
+		<partial name="_ValidationScriptsPartial" />
+	}
+}
