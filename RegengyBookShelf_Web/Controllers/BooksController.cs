@@ -7,7 +7,7 @@ using System.Text;
 
 namespace RegengyBookShelf_Web.Controllers
 {
-    public class BooksController : Controller
+	public class BooksController : Controller
     {
         private readonly IBooksService _booksService;
         private static HttpClient _httpClient = new HttpClient();
@@ -60,8 +60,30 @@ namespace RegengyBookShelf_Web.Controllers
 
         public async Task<IActionResult> UpdateBook(int bookId)
         {
-            return View();
+            if (bookId == 0)
+            {
+                return BadRequest();
+            }
+			BooksDto book = new();
+			var response = await _booksService.GetAsync<APIResponse>(bookId);
+            if (response != null) {
+				book = JsonConvert.DeserializeObject<BooksDto>(Convert.ToString(response.Result));
+			}
+
+			return View(book);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> UpdateBook(BooksDto booksDto)
+        {
+            if (booksDto != null)
+            {
+                using (var content = new StringContent(JsonConvert.SerializeObject(booksDto), Encoding.UTF8, "application/json"))
+                {
+                    await _httpClient.PostAsync("https://prod-41.eastus.logic.azure.com:443/workflows/ae9a821e5a424b6a89acb89cfb7f4934/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=EhFOmj34juZ2pMSNehcayZuKevxjAZgr67dPLDwdivw", content);
+                }
+            }
+            return RedirectToAction(nameof(Index));
+		}
 	}
 }
