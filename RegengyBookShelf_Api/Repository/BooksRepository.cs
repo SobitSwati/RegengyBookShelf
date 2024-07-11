@@ -12,5 +12,12 @@ namespace RegengyBookShelf_Api.Repository
         {
             _db = db;
         }
+
+        public async Task<Books> UpdateAsync(Books book)
+        {
+           _db.Books.Update(book);
+           await _db.SaveChangesAsync();
+            return book;
+        }
     }
 }
