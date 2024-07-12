@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RegengyBookShelf_Api.Models.Dtos
 {
@@ -15,5 +16,9 @@ namespace RegengyBookShelf_Api.Models.Dtos
         public string Author { get; set; }
         [ValidateNever]
         public string ImageUrl { get; set; }
-    }
+		[Required]
+		public int SeriesId { get; set; }
+
+		public Series Series { get; set; }
+	}
 }
