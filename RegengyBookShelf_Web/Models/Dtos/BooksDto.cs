@@ -15,5 +15,7 @@ namespace RegengyBookShelf_Web.Models.Dtos
         public string Author { get; set; }
         [ValidateNever]
         public string ImageUrl { get; set; }
+
+        public int SeriesId { get; set; }
     }
 }
