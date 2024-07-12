@@ -16,7 +16,7 @@ namespace RegengyBookShelf_Api.Repository
             this.dbSet = _db.Set<T>();
         }
 
-        public async Task<List<T>> GetAllAsync()
+        public async Task<List<T>> GetAllAsync(string? includeProperties = null)
         {
             IQueryable<T> query = dbSet;
             return await query.ToListAsync();

@@ -24,7 +24,7 @@ namespace RegengyBookShelf_Api.Controllers
         [HttpGet]
         public async Task<ActionResult<APIResponse>> GetAllBooks()
         {
-            IEnumerable<Books> books = await _booksRepository.GetAllAsync();
+            IEnumerable<Books> books = await _booksRepository.GetAllAsync(includeProperties:"Series");
             _response.Result = books;
             _response.StatusCode = HttpStatusCode.OK;
             _response.IsSuccess = true;
