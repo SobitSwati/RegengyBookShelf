@@ -38,7 +38,7 @@ namespace RegengyBookShelf_Web.Controllers
             if (book != null) {
                 using (var content = new StringContent(JsonConvert.SerializeObject(book), Encoding.UTF8, "application/json"))
                 {
-                    await _httpClient.PostAsync("https://prod-48.eastus.logic.azure.com:443/workflows/570a05c4c8e640db976205a846fccb92/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=ueipxLKWctQrq4pumed4Pa3pujXV2Ve1NzObfYKGohQ", content);
+                    await _httpClient.PostAsync("https://prod-63.eastus.logic.azure.com:443/workflows/22d4df8ae0a046f298a2115b2b902b9c/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=8OVLf3NxUv0czs-CzdTUkS1-4-3Xu9L3ltiLepFwa9w", content);
                 }
             }
             return RedirectToAction(nameof(Index));
@@ -80,7 +80,7 @@ namespace RegengyBookShelf_Web.Controllers
             {
                 using (var content = new StringContent(JsonConvert.SerializeObject(booksDto), Encoding.UTF8, "application/json"))
                 {
-                    await _httpClient.PostAsync("https://prod-41.eastus.logic.azure.com:443/workflows/ae9a821e5a424b6a89acb89cfb7f4934/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=EhFOmj34juZ2pMSNehcayZuKevxjAZgr67dPLDwdivw", content);
+                    await _httpClient.PostAsync("https://prod-60.eastus.logic.azure.com:443/workflows/eefbdb5afd6847c4a98079e3b7176ab4/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=Jl4n5v6JHdvxDvzZq88Lqa_ZGBYIRY42PFzrju_b-Lc", content);
                 }
             }
             return RedirectToAction(nameof(Index));
@@ -109,7 +109,7 @@ namespace RegengyBookShelf_Web.Controllers
             {
                 using (var content = new StringContent(JsonConvert.SerializeObject(booksDto), Encoding.UTF8, "application/json"))
                 {
-                    await _httpClient.PostAsync("https://prod-65.eastus.logic.azure.com:443/workflows/61d50db0b1cf4c5abaf0a02ffc32cbdc/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=68pLc7_j5mfGE5h3lWZJaamsBvT4kP72b1nWDG8Izcg", content);
+                    await _httpClient.PostAsync("https://prod-22.eastus.logic.azure.com:443/workflows/a0519efefe334ee4852404d6fc5b1315/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=Fdqwwam1SNifFFlX1JD_1F-1tt5G1TPgSyj7TkdEv94", content);
                 }
             }
 			return RedirectToAction(nameof(Index));

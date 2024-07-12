@@ -41,7 +41,7 @@ namespace RegengyBookShelf_Web.Controllers
 			{
 				using (var content = new StringContent(JsonConvert.SerializeObject(seriesDto), Encoding.UTF8, "application/json"))
 				{
-					await _httpClient.PostAsync("https://prod-20.eastus.logic.azure.com:443/workflows/866383706c6a40b8af2510a414a344fa/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=Z-TWLR5i3mvO6fAKrNKRNasgHhUdQB1LEvxKjDxgfMU", content);
+					await _httpClient.PostAsync("https://prod-01.eastus.logic.azure.com:443/workflows/cbe78857e02242b195dadd6adf76bd21/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=aIprXsPefyAl_u9P9qIbB_6K6WR7liKRlCe5Qg-23jE", content);
 				}
 			}
 			return RedirectToAction(nameof(Index));
