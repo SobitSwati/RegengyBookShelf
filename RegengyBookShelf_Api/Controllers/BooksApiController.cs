@@ -39,7 +39,7 @@ namespace RegengyBookShelf_Api.Controllers
             {
                 return BadRequest();
             }
-            var book = await _booksRepository.GetAsync(u => u.Id == bookId);
+            var book = await _booksRepository.GetAsync(u => u.Id == bookId, includeProperties:"Series");
 
             if (book == null)
             {

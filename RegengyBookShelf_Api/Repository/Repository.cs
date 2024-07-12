@@ -19,15 +19,29 @@ namespace RegengyBookShelf_Api.Repository
         public async Task<List<T>> GetAllAsync(string? includeProperties = null)
         {
             IQueryable<T> query = dbSet;
+            if (includeProperties != null)
+            {
+                foreach (var includeProp in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(includeProp);
+                }
+            }
             return await query.ToListAsync();
         }
 
-		public async Task<T> GetAsync(Expression<Func<T, bool>> filter)
+		public async Task<T> GetAsync(Expression<Func<T, bool>> filter, string? includeProperties = null)
 		{
 			IQueryable<T> query = dbSet;
 			if (filter != null)
             {
                 query = query.Where(filter);
+            }
+            if (includeProperties != null)
+            {
+                foreach (var includeProp in includeProperties.Split(new char[] {','}, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(includeProp);
+                }
             }
 
             return await query.FirstOrDefaultAsync();
