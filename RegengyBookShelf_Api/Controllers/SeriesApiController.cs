@@ -25,11 +25,21 @@ namespace RegengyBookShelf_Api.Controllers
         [HttpGet]
         public async Task<ActionResult<APIResponse>> GetAllSeries()
         {
-            IEnumerable<Series> seriesDtos = await _seriesRepository.GetAllAsync();
-            _response.Result = _mapper.Map<List<SeriesDto>>(seriesDtos);
-            _response.StatusCode = HttpStatusCode.OK;
-            _response.IsSuccess = true;
-            return Ok(_response) ;
+            try
+            {
+				IEnumerable<Series> seriesDtos = await _seriesRepository.GetAllAsync();
+				_response.Result = _mapper.Map<List<SeriesDto>>(seriesDtos);
+				_response.StatusCode = HttpStatusCode.OK;
+				_response.IsSuccess = true;
+				return Ok(_response);
+			}
+            catch (Exception ex)
+            {
+				_response.StatusCode = HttpStatusCode.InternalServerError;
+				_response.IsSuccess = false;
+				throw;
+            }
+          
         }
 
         [HttpPost]
@@ -62,17 +72,29 @@ namespace RegengyBookShelf_Api.Controllers
                 return BadRequest();
             }
 
-            Series series = await _seriesRepository.GetAsync(u => u.Id == seriesId);
-
-            if (series == null)
+            try
             {
-                return NotFound();
-            }
+				Series series = await _seriesRepository.GetAsync(u => u.Id == seriesId);
 
-            _response.Result = series;
-            _response.StatusCode = HttpStatusCode.OK;
-            _response.IsSuccess = true;
-            return Ok(_response);
+				if (series == null)
+				{
+					_response.IsSuccess = false;
+					_response.StatusCode = HttpStatusCode.NotFound;
+                    _response.ErrorMessages = new List<string> { "Series not found"};
+					return NotFound(_response);
+				}
+
+				_response.Result = series;
+				_response.StatusCode = HttpStatusCode.OK;
+				_response.IsSuccess = true;
+				return Ok(_response);
+			}
+            catch (Exception ex)
+            {
+				_response.IsSuccess = false;
+				_response.StatusCode = HttpStatusCode.InternalServerError;
+				return StatusCode((int)HttpStatusCode.InternalServerError, _response);
+			}
         }
 
         [HttpPut("seriesId")]
