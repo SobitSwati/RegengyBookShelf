@@ -24,10 +24,20 @@ namespace RegengyBookShelf_Api.Controllers
         [HttpGet]
         public async Task<ActionResult<APIResponse>> GetAllBooks()
         {
-            IEnumerable<Books> books = await _booksRepository.GetAllAsync(includeProperties:"Series");
-            _response.Result = books;
-            _response.StatusCode = HttpStatusCode.OK;
-            _response.IsSuccess = true;
+            try
+            {
+                IEnumerable<Books> books = await _booksRepository.GetAllAsync(includeProperties: "Series");
+                _response.Result = books;
+                _response.StatusCode = HttpStatusCode.OK;
+                _response.IsSuccess = true;
+            }
+            catch (Exception)
+            {
+                _response.ErrorMessages = new List<string> { "Error getting books list"};
+                _response.StatusCode = HttpStatusCode.InternalServerError;
+                _response.IsSuccess = false;
+            }
+           
             return Ok(_response);
         }
 
@@ -39,17 +49,29 @@ namespace RegengyBookShelf_Api.Controllers
             {
                 return BadRequest();
             }
-            var book = await _booksRepository.GetAsync(u => u.Id == bookId, includeProperties:"Series");
+            try
+            {
+                var book = await _booksRepository.GetAsync(u => u.Id == bookId, includeProperties: "Series");
 
-            if (book == null)
-            {
-                return NotFound();
+                if (book == null)
+                {
+                    _response.ErrorMessages = new List<string> { "Book Not Found."};
+                    _response.StatusCode = HttpStatusCode.NotFound;
+                    _response.IsSuccess = false;
+                    return NotFound(_response);
+                }
+                else
+                {
+                    _response.Result = book;
+                    _response.StatusCode = HttpStatusCode.OK;
+                    _response.IsSuccess = true;
+                }
             }
-            else
+            catch (Exception)
             {
-                _response.Result = book;
-                _response.StatusCode = HttpStatusCode.OK;
-                _response.IsSuccess = true;
+                _response.ErrorMessages = new List<string> { "Error getting book details" };
+                _response.StatusCode = HttpStatusCode.InternalServerError;
+                _response.IsSuccess = false;
             }
 
 			return Ok(_response);
