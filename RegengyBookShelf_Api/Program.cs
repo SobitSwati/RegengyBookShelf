@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using RegengyBookShelf_Api;
+using RegengyBookShelf_Api.Custom;
 using RegengyBookShelf_Api.Data;
 using RegengyBookShelf_Api.Repository;
 using RegengyBookShelf_Api.Repository.IRepository;
@@ -8,7 +9,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add<CustomExceptionFilter>();
+});
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddAutoMapper(typeof(MappingConfig));

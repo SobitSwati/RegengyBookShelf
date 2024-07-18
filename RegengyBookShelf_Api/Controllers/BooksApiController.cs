@@ -24,20 +24,10 @@ namespace RegengyBookShelf_Api.Controllers
         [HttpGet]
         public async Task<ActionResult<APIResponse>> GetAllBooks()
         {
-            try
-            {
-                IEnumerable<Books> books = await _booksRepository.GetAllAsync(includeProperties: "Series");
-                _response.Result = books;
-                _response.StatusCode = HttpStatusCode.OK;
-                _response.IsSuccess = true;
-            }
-            catch (Exception)
-            {
-                _response.ErrorMessages = new List<string> { "Error getting books list"};
-                _response.StatusCode = HttpStatusCode.InternalServerError;
-                _response.IsSuccess = false;
-            }
-           
+            IEnumerable<Books> books = await _booksRepository.GetAllAsync(includeProperties: "Series");
+            _response.Result = books;
+            _response.StatusCode = HttpStatusCode.OK;
+            _response.IsSuccess = true;
             return Ok(_response);
         }
 
@@ -49,32 +39,23 @@ namespace RegengyBookShelf_Api.Controllers
             {
                 return BadRequest();
             }
-            try
-            {
-                var book = await _booksRepository.GetAsync(u => u.Id == bookId, includeProperties: "Series");
 
-                if (book == null)
-                {
-                    _response.ErrorMessages = new List<string> { "Book Not Found."};
-                    _response.StatusCode = HttpStatusCode.NotFound;
-                    _response.IsSuccess = false;
-                    return NotFound(_response);
-                }
-                else
-                {
-                    _response.Result = book;
-                    _response.StatusCode = HttpStatusCode.OK;
-                    _response.IsSuccess = true;
-                }
-            }
-            catch (Exception)
+            var book = await _booksRepository.GetAsync(u => u.Id == bookId, includeProperties: "Series");
+
+            if (book == null)
             {
-                _response.ErrorMessages = new List<string> { "Error getting book details" };
-                _response.StatusCode = HttpStatusCode.InternalServerError;
+                _response.ErrorMessages = new List<string> { "Book Not Found." };
+                _response.StatusCode = HttpStatusCode.NotFound;
                 _response.IsSuccess = false;
+                return NotFound(_response);
             }
-
-			return Ok(_response);
+            else
+            {
+                _response.Result = book;
+                _response.StatusCode = HttpStatusCode.OK;
+                _response.IsSuccess = true;
+            }
+            return Ok(_response);
         }
 
         [HttpPut("bookId")]
@@ -83,24 +64,15 @@ namespace RegengyBookShelf_Api.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<ActionResult<APIResponse>> UpdateBook(int bookId, [FromBody] BooksDto bookDto)
         {
-            try
+            if (bookDto == null)
             {
-                if (bookDto == null)
-                {
-                    return BadRequest();
-                }
-
-                Books book = _mapper.Map<Books>(bookDto);
-                await _booksRepository.UpdateAsync(book);
-                _response.StatusCode = HttpStatusCode.NoContent;
-                _response.IsSuccess = true;
-
+                return BadRequest();
             }
-            catch (Exception ex)
-            {
-                _response.StatusCode = HttpStatusCode.InternalServerError;
-                _response.IsSuccess = false;
-            }
+
+            Books book = _mapper.Map<Books>(bookDto);
+            await _booksRepository.UpdateAsync(book);
+            _response.StatusCode = HttpStatusCode.NoContent;
+            _response.IsSuccess = true;
 
             return Ok(_response);
         }
