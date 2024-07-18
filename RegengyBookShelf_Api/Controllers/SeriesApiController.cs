@@ -53,11 +53,21 @@ namespace RegengyBookShelf_Api.Controllers
             {
                 return BadRequest();
             }
-            Series seriesToAdd = _mapper.Map<Series>(seriesDto);
+            try
+            {
+                Series seriesToAdd = _mapper.Map<Series>(seriesDto);
 
-            _response.Result = _seriesRepository.AddAsync(seriesToAdd);
-            _response.StatusCode = HttpStatusCode.Created;
-            _response.IsSuccess = true;
+                _response.Result = _seriesRepository.AddAsync(seriesToAdd);
+                _response.StatusCode = HttpStatusCode.Created;
+                _response.IsSuccess = true;
+            }
+            catch (Exception)
+            {
+                _response.StatusCode = HttpStatusCode.InternalServerError;
+                _response.IsSuccess = false;
+                _response.ErrorMessages = new List<string> { "Error added new series" };
+            }
+            
           
             return Ok(_response);
         }
@@ -139,16 +149,27 @@ namespace RegengyBookShelf_Api.Controllers
                 return BadRequest();
             }
 
-            var seriesToDelete = await _seriesRepository.GetAsync(u=> u.Id == seriesId);
-            if (seriesToDelete == null)
+            try
             {
-                return NotFound();
-            }
+                var seriesToDelete = await _seriesRepository.GetAsync(u => u.Id == seriesId);
+                if (seriesToDelete == null)
+                {
+                    _response.IsSuccess = false;
+                    _response.StatusCode = HttpStatusCode.NotFound;
+                    _response.ErrorMessages = new List<string>{ "Series Not Found"};
+                    return NotFound(_response);
+                }
 
-            Series series = _mapper.Map<Series>(seriesToDelete);
-            await _seriesRepository.DeleteAsync(series);
-            _response.IsSuccess = true;
-            _response.StatusCode = HttpStatusCode.NoContent;
+                Series series = _mapper.Map<Series>(seriesToDelete);
+                await _seriesRepository.DeleteAsync(series);
+                _response.IsSuccess = true;
+                _response.StatusCode = HttpStatusCode.NoContent;
+            }
+            catch (Exception)
+            {
+                _response.IsSuccess = false;
+                _response.StatusCode = HttpStatusCode.InternalServerError;
+            }
             return (_response);
         }
     }
